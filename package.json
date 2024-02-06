@@ -1,0 +1,44 @@
+{
+    "name": "payload",
+    "description": "A blank template to get started with Payload",
+    "version": "1.0.0",
+    "main": "dist/server.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
+        "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
+        "build:server": "tsc",
+        "build": "yarn copyfiles && yarn build:payload && yarn build:server",
+        "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
+        "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
+        "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
+        "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema",
+        "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+        "generate:gcl": "graphql-codegen",
+        "generate:all": "pnpm run '/generate:(?!all)/' && pnpm payload migrate:create",
+        "watch:gcl": "graphql-codegen -w"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.9.2",
+        "@payloadcms/bundler-webpack": "^1.0.6",
+        "@payloadcms/db-postgres": "^0.5.0",
+        "@payloadcms/plugin-cloud": "^3.0.0",
+        "@payloadcms/richtext-slate": "^1.4.0",
+        "cross-env": "^7.0.3",
+        "dotenv": "^8.6.0",
+        "drizzle-orm": "^0.29.3",
+        "express": "^4.18.2",
+        "graphql": "^16.8.1",
+        "payload": "^2.9.0"
+    },
+    "devDependencies": {
+        "@graphql-codegen/cli": "^5.0.0",
+        "@graphql-codegen/client-preset": "^4.1.0",
+        "@graphql-typed-document-node/core": "^3.2.0",
+        "@types/express": "^4.17.21",
+        "copyfiles": "^2.4.1",
+        "nodemon": "^2.0.22",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.9.5"
+    }
+}
